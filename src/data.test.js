@@ -1,9 +1,10 @@
-import Data from './data';
-import { startMirage } from './mirage';
+import Data from "./data"
+import { startMirage } from "./mirage"
 
+import * as data from "./data"
 // -------------------------------------------------------------------------------------------------------- Before/After
 
-let server;
+let server
 
 beforeEach(() => {
   server = startMirage();
@@ -47,3 +48,49 @@ it('will return the requested user and their factory created information', done 
     done();
   });
 });
+
+// @ponicode
+describe("allUsers", () => {
+    let inst
+
+    beforeEach(() => {
+        inst = new data.default()
+    })
+
+    test("0", async () => {
+        await inst.allUsers()
+    })
+})
+
+// @ponicode
+describe("lookupUser", () => {
+    let inst
+
+    beforeEach(() => {
+        inst = new data.default()
+    })
+
+    test("0", async () => {
+        await inst.lookupUser("c466a48309794261b64a4f02cfcc3d64")
+    })
+
+    test("1", async () => {
+        await inst.lookupUser("b'nXQpVsglEGFJgfK'")
+    })
+
+    test("2", async () => {
+        await inst.lookupUser("/people/%s/@self")
+    })
+
+    test("3", async () => {
+        await inst.lookupUser("A1234")
+    })
+
+    test("4", async () => {
+        await inst.lookupUser("fake_user_id")
+    })
+
+    test("5", async () => {
+        await inst.lookupUser(undefined)
+    })
+})
